@@ -7,6 +7,7 @@ const bikeOwnerLayout = () => {
     <>
       <Stack>
         <Stack.Screen name="addBicycle" options={{ headerShown: false }} />
+        <Stack.Screen name="GetAllBikes" options={{ headerShown: false }} />
       </Stack>
     </>
   );
