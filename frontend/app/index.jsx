@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text } from 'react-native';
-import CustomeButton from './components/CustomeButton';
+import CustomButton from './components/CustomButton';
 import { router } from 'expo-router';
 
 export default function App() {
@@ -9,11 +9,11 @@ export default function App() {
       <Text className="text-3xl font-bold mb-6">open ride</Text>
       <StatusBar style="auto" />
       
-      <CustomeButton
+      <CustomButton
         title="Sign In"
         handlePress={() => router.push('/sign-in')}
       />
-      <CustomeButton
+      <CustomButton
         title="Sign Up"
         handlePress={() => router.push('/sign-up')}
       />
