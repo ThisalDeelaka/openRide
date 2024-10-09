@@ -49,6 +49,7 @@ const SignIn = ({ navigation }) => {
       {/* App Logo or Title */}
       <Text className="text-primary font-display text-4xl font-bold mb-8">OpenRide</Text>
 
+
       {/* Form Fields */}
       <FormField
         label="Username"

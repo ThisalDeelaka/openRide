@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Slot, { Stack } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Stack } from 'expo-router'; // Import Stack properly from expo-router
 
 const RootLayout = () => {
-  return(
+  return (
     <Stack>
-      <Stack.Screan name="index" options = {{headerShown: false,title: 'welcome'}}/>
-      <Stack.Screan name="(auth)" options = {{headerShown: false,title: 'welcome'}}/>
+      {/* Corrected the typo from Screan to Screen */}
+      <Stack.Screen name="index" options={{ headerShown: false, title: 'welcome' }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false, title: 'welcome' }} />
     </Stack>
-  )
+  );
 }
 
-export default RootLayout
+export default RootLayout;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
