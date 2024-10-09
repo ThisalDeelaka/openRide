@@ -25,6 +25,11 @@ export default function App() {
           onPress={() => router.push('/HomeScreen')} // Navigate to Home screen
           className="mt-4" // Add some margin for spacing
         />
+
+        <CustomButton
+          title="Add Bicycle"
+          onPress={() => router.push('/addBicycle')} // Changed handlePress to onPress
+        />
       </View>
     </SafeAreaView>
   );
