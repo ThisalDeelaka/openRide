@@ -5,8 +5,8 @@ import Slot, { Stack } from 'expo-router';
 const RootLayout = () => {
   return(
     <Stack>
-      <Stack.Screan name="index" options = {{headerShown: true,title: 'welcome'}}/>
-      <Stack.Screan name="(auth)" options = {{headerShown: true,title: 'welcome'}}/>
+      <Stack.Screan name="index" options = {{headerShown: false,title: 'welcome'}}/>
+      <Stack.Screan name="(auth)" options = {{headerShown: false,title: 'welcome'}}/>
     </Stack>
   )
 }
