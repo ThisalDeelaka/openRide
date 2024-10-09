@@ -6,14 +6,10 @@ const RootLayout = () => {
   return (
     <Stack>
       {/* Corrected the typo from Screan to Screen */}
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false, title: "welcome" }}
-      />
-      <Stack.Screen
-        name="(auth)"
-        options={{ headerShown: false, title: "auth" }}
-      />
+      <Stack.Screen name="index" options={{ headerShown: false, title: 'welcome' }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false, title: 'welcome' }} />
+      <Stack.Screen name="(screens)" options={{ headerShown: false, title: 'welcome' }} />
+      
       <Stack.Screen
         name="(tabs)"
         options={{ headerShown: false, title: "tabs" }}
