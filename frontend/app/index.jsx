@@ -19,6 +19,11 @@ export default function App() {
           title="Sign Up"
           onPress={() => router.push('/sign-up')} // Changed handlePress to onPress
         />
+
+        <CustomButton
+          title="Add Bicycle"
+          onPress={() => router.push('/addBicycle')} // Changed handlePress to onPress
+        />
       </View>
     </SafeAreaView>
   );
