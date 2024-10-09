@@ -36,6 +36,7 @@ const SignIn = () => {
   };
 
   return (
+    
     <View className="p-4">
       <Text className="text-xl font-bold mb-4">Sign In</Text>
 
