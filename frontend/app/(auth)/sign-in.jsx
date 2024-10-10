@@ -1,49 +1,94 @@
-import { useState } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
-import FormField from '../components/FormField'; // Import the FormField component
-import axios from 'axios';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { Link } from 'expo-router';
+import FormField from '../components/FormField';
+import api from '../../api';
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});  // Track input errors
+
+  // Real-time validation
+  const validateInput = () => {
+    const newErrors = {};
+    if (!username) newErrors.username = 'Please enter your username';
+    if (!password) newErrors.password = 'Please enter your password';
+    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters long';
+    return newErrors;
+  };
 
   const handleSignIn = async () => {
+    const validationErrors = validateInput();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await axios.post('http://192.168.8.153:5000/api/users/login', {
-        username,
-        password,
-      });
+      const response = await api.post('/api/users/login', { username, password });
       const { user } = response.data;
 
-      // Navigate based on user role
       if (user.role === 'admin') {
-        // Navigate to Admin Layout
         Alert.alert('Success', 'Welcome Admin');
-        // Example: navigation.navigate('AdminLayout');
+        navigation.navigate('AdminDashboard');
       } else {
-        // Navigate to User/Bike Owner Layout
         Alert.alert('Success', 'Welcome User');
-        // Example: navigation.navigate('UserLayout');
+        navigation.navigate('Home');
       }
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
-      Alert.alert('Error', 'Login failed');
+      Alert.alert('Error', 'Login failed. Please check your credentials.');
     }
+    setLoading(false);
   };
 
   return (
-    <View className="p-4">
-      <Text className="text-xl font-bold mb-4">Sign In</Text>
-      
-      <FormField label="Username" placeholder="Enter your username" onChangeText={setUsername} />
-      <FormField label="Password" placeholder="Enter your password" onChangeText={setPassword} secureTextEntry={true} />
+    <View className="flex-1 justify-center items-center bg-background p-6">
+      {/* App Logo or Title */}
+      <Text className="text-primary font-display text-4xl font-bold mb-8">OpenRide</Text>
 
-      <Button title="Sign In" onPress={handleSignIn} />
 
-      <View className="mt-4">
-        <Text className="text-gray-700">Don't have an account?</Text>
-        <Link href="/sign-up" className="text-blue-500">Sign Up</Link>
+      {/* Form Fields */}
+      <FormField
+        label="Username"
+        placeholder="Enter your username"
+        onChangeText={setUsername}
+        inputStyles={`border ${errors.username ? 'border-danger' : 'border-borderGray'} rounded-large p-4 text-base`}
+        errorMessage={errors.username}
+      />
+      <FormField
+        label="Password"
+        placeholder="Enter your password"
+        onChangeText={setPassword}
+        secureTextEntry
+        inputStyles={`border ${errors.password ? 'border-danger' : 'border-borderGray'} rounded-large p-4 text-base`}
+        errorMessage={errors.password}
+      />
+
+      {/* Sign-In Button with Loading State */}
+      <TouchableOpacity
+        onPress={handleSignIn}
+        disabled={loading}
+        className={`bg-primary p-4 rounded-full w-full mt-6 shadow-button ${loading && 'opacity-50'}`}
+        activeOpacity={0.8}
+      >
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text className="text-white text-lg font-semibold text-center">Sign In</Text>
+        )}
+      </TouchableOpacity>
+
+      {/* Forgot Password and Sign Up Links */}
+      <View className="mt-6 w-full flex-row justify-between">
+        <Link href="/forgot-password" className="text-mutedText text-sm">
+          Forgot Password?
+        </Link>
+        <Link href="/sign-up" className="text-secondary text-sm font-semibold">
+          Sign Up
+        </Link>
       </View>
     </View>
   );
